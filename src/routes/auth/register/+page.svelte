@@ -12,7 +12,7 @@
 			<Form.Field {config} name="email">
 				<Form.Label>Username</Form.Label>
 				<Form.Input placeholder="user.example@gmail.com" />
-				<Form.Description>This will act as the username for your account</Form.Description>
+				<Form.Description>Your email will act as the username for your account</Form.Description>
 				<Form.Validation />
 			</Form.Field>
 		</Form.Item>
