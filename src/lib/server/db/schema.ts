@@ -12,8 +12,8 @@ export const user = mysqlTable('user', {
 
 export const session = mysqlTable('session', {
 	id: varchar('id', { length: 255 }).primaryKey(),
-	user_id: varchar('user_id', { length: 255 })
+	userId: varchar('user_id', { length: 255 })
 		.notNull()
 		.references(() => user.id),
-	expires_at: datetime('expires_at').notNull()
+	expiresAt: datetime('expires_at').notNull()
 });
