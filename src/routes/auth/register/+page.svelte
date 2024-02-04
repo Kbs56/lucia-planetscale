@@ -1,29 +1,38 @@
 <script lang="ts">
-	import * as Form from '$lib/components/ui/form';
-	import type { SuperValidated } from 'sveltekit-superforms';
-	import { formSchema, type FormSchema } from './schema';
+	import * as Card from '$lib/components/ui/card';
+	import { Label } from '$lib/components/ui/label';
+	import { Input } from '$lib/components/ui/input';
+	import { Button } from '$lib/components/ui/button';
 
-	export let data: SuperValidated<FormSchema>;
+	export let form;
 </script>
 
-<div class="flex h-screen items-center justify-center">
-	<Form.Root form={data} schema={formSchema} let:config method="POST" class="space-y-8">
-		<Form.Item>
-			<Form.Field {config} name="email">
-				<Form.Label>Username</Form.Label>
-				<Form.Input placeholder="user.example@gmail.com" />
-				<Form.Description>Your email will act as the username for your account</Form.Description>
-				<Form.Validation />
-			</Form.Field>
-		</Form.Item>
-		<Form.Item>
-			<Form.Field {config} name="password">
-				<Form.Label>Password</Form.Label>
-				<Form.Input type="password" placeholder="password" />
-				<Form.Description>This is your password</Form.Description>
-				<Form.Validation />
-			</Form.Field>
-		</Form.Item>
-		<Form.Button>Register</Form.Button>
-	</Form.Root>
+<div class="flex h-screen w-full items-center justify-center">
+	<Card.Root class="flex w-1/3 flex-col space-y-1">
+		<Card.Header>
+			<Card.Title class="text-2xl">Register Account.</Card.Title>
+			<Card.Description>Register here to become a member.</Card.Description>
+		</Card.Header>
+		<Card.Content>
+			<form class="flex flex-col gap-y-4" method="POST">
+				<div class="flex w-full flex-col gap-1.5">
+					<Label for="email">Email</Label>
+					<Input type="email" id="email" placeholder="email" name="email" required />
+				</div>
+
+				<div class="flex w-full flex-col gap-1.5">
+					<Label for="password">Password</Label>
+					<Input type="password" id="password" placeholder="password" name="password" required />
+				</div>
+
+				{#if form?.message}
+					<span class="text-sm font-light text-red-600">{form?.message}</span>
+				{/if}
+
+				<div class="flex w-full flex-row items-center justify-center gap-1.5">
+					<Button type="submit">Register</Button>
+				</div>
+			</form>
+		</Card.Content>
+	</Card.Root>
 </div>

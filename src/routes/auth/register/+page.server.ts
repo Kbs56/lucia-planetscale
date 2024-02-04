@@ -8,12 +8,16 @@ import { Argon2id } from 'oslo/password';
 import { db } from '$lib/server/db/db';
 import { user } from '$lib/server/db/schema';
 import { DatabaseError } from '@planetscale/database';
+import { superValidate } from 'sveltekit-superforms/server';
 
 export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
 		return redirect(302, '/');
+	} else {
+		return {
+			form: await superValidate(formSchema)
+		};
 	}
-	return {};
 };
 
 export const actions: Actions = {
