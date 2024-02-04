@@ -40,7 +40,7 @@ export const actions: Actions = {
 		} catch (e) {
 			if (e instanceof DatabaseError && e.body.message.includes('AlreadyExists')) {
 				return fail(400, {
-					message: 'Account with that email already exists'
+					message: 'Account with that email already exists.'
 				});
 			}
 			return fail(500, {
