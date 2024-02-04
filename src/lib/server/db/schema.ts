@@ -2,9 +2,8 @@ import { datetime, mysqlTable, varchar } from 'drizzle-orm/mysql-core';
 
 export const user = mysqlTable('user', {
 	id: varchar('id', { length: 255 }).primaryKey(),
-	firstName: varchar('first_name', { length: 100 }).notNull(),
-	lastName: varchar('last_name', { length: 100 }).notNull(),
-	email: varchar('email', { length: 255 })
+	email: varchar('email', { length: 255 }).notNull(),
+	password: varchar('password', { length: 255 }).notNull()
 });
 
 export const session = mysqlTable('session', {

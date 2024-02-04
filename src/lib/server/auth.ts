@@ -13,8 +13,6 @@ export const lucia = new Lucia(adapter, {
 	},
 	getUserAttributes: (data) => {
 		return {
-			firstName: data.firstName,
-			lastName: data.lastName,
 			email: data.email
 		};
 	}
@@ -24,8 +22,6 @@ declare module 'lucia' {
 	interface Register {
 		Lucia: typeof lucia;
 		DatabaseUserAttributes: {
-			firstName: string;
-			lastName: string;
 			email: string;
 		};
 	}
