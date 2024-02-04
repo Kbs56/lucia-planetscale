@@ -49,9 +49,13 @@
 		"@lucia-auth/adapter-drizzle": "^1.0.0",
 		"@lucia-auth/adapter-mysql": "^3.0.0",
 		"@planetscale/database": "^1.14.0",
+		"clsx": "^2.1.0",
 		"dotenv": "^16.4.1",
 		"drizzle-orm": "^0.29.3",
 		"lucia": "^3.0.1",
-		"oslo": "^1.0.4"
+		"oslo": "^1.0.4",
+		"radix-icons-svelte": "^1.2.1",
+		"tailwind-merge": "^2.2.1",
+		"tailwind-variants": "^0.1.20"
 	}
 }
