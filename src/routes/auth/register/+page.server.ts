@@ -9,6 +9,7 @@ import { db } from '$lib/server/db/db';
 import { user } from '$lib/server/db/schema';
 import { DatabaseError } from '@planetscale/database';
 import { superValidate } from 'sveltekit-superforms/server';
+import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
@@ -26,6 +27,14 @@ export const actions: Actions = {
 
 		const data = formSchema.parse(formData);
 
+		const existingUser = await db.select().from(user).where(eq(user.email, data.email));
+
+		if (existingUser) {
+			return fail(400, {
+				message: 'Account with that email already exists.'
+			});
+		}
+
 		const userId = generateId(15);
 		const hashedPassword = await new Argon2id().hash(data.password);
 
@@ -38,11 +47,6 @@ export const actions: Actions = {
 				...sessionCookie.attributes
 			});
 		} catch (e) {
-			if (e instanceof DatabaseError && e.body.message.includes('AlreadyExists')) {
-				return fail(400, {
-					message: 'Account with that email already exists.'
-				});
-			}
 			return fail(500, {
 				message: 'An unkown error occured'
 			});

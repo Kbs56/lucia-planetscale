@@ -3,6 +3,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
+	import { enhance } from '$app/forms';
 
 	export let form;
 </script>
@@ -14,7 +15,7 @@
 			<Card.Description>Register here to become a member.</Card.Description>
 		</Card.Header>
 		<Card.Content>
-			<form class="flex flex-col gap-y-4" method="POST">
+			<form class="flex flex-col gap-y-4" method="POST" use:enhance>
 				<div class="flex w-full flex-col gap-1.5">
 					<Label for="email">Email</Label>
 					<Input type="email" id="email" placeholder="email" name="email" required />
