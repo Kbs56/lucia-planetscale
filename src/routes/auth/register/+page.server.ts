@@ -34,8 +34,6 @@ export const actions: Actions = {
 		const existingUser = await db.select().from(user).where(eq(user.email, form.data.email));
 
 		if (Object.keys(existingUser).length != 0) {
-			console.log(typeof existingUser);
-			console.log(existingUser);
 			return setError(form, 'email', 'Email address already exists');
 		}
 
