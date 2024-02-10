@@ -3,11 +3,10 @@ import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { lucia } from '$lib/server/auth';
-import { generateId } from 'lucia';
 import { Argon2id } from 'oslo/password';
 import { db } from '$lib/server/db/db';
 import { user } from '$lib/server/db/schema';
-import { setError, superValidate } from 'sveltekit-superforms/server';
+import { message, superValidate } from 'sveltekit-superforms/server';
 import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async (event) => {
@@ -33,28 +32,25 @@ export const actions: Actions = {
 
 		const existingUser = await db.select().from(user).where(eq(user.email, form.data.email));
 
-		if (Object.keys(existingUser).length != 0) {
-			return setError(form, 'email', 'Email address already exists');
+		if (Object.keys(existingUser).length === 0) {
+			return message(form, 'No user with that email found');
 		}
 
-		const userId = generateId(15);
-		const hashedPassword = await new Argon2id().hash(form.data.password);
+		const validPassword = await new Argon2id().verify(existingUser[0].password, form.data.password);
 
-		try {
-			await db
-				.insert(user)
-				.values({ id: userId, email: form.data.email, password: hashedPassword });
-			const session = await lucia.createSession(userId, {});
-			const sessionCookie = lucia.createSessionCookie(session.id);
-			event.cookies.set(sessionCookie.name, sessionCookie.value, {
-				path: '.',
-				...sessionCookie.attributes
-			});
-		} catch (e) {
-			return fail(500, {
-				message: 'An unkown error occured'
-			});
+		console.log(validPassword);
+
+		if (!validPassword) {
+			return message(form, 'Incorrect username or password');
 		}
-		return redirect(302, '/');
+
+		const session = await lucia.createSession(existingUser[0].id, {});
+		const sessionCookie = lucia.createSessionCookie(session.id);
+		event.cookies.set(sessionCookie.name, sessionCookie.value, {
+			path: '.',
+			...sessionCookie.attributes
+		});
+
+		redirect(302, '/');
 	}
 };

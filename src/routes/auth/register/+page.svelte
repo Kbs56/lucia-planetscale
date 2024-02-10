@@ -5,7 +5,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import type { PageData } from '../$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import { formSchema } from './schema';
+	import { formSchema } from '$lib/schema';
 
 	export let data: PageData;
 
