@@ -7,39 +7,45 @@ import { generateId } from 'lucia';
 import { Argon2id } from 'oslo/password';
 import { db } from '$lib/server/db/db';
 import { user } from '$lib/server/db/schema';
-import { DatabaseError } from '@planetscale/database';
-import { superValidate } from 'sveltekit-superforms/server';
+import { setError, superValidate } from 'sveltekit-superforms/server';
 import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
 		return redirect(302, '/');
 	} else {
+		const form = await superValidate(event, formSchema);
 		return {
-			form: await superValidate(formSchema)
+			form
 		};
 	}
 };
 
 export const actions: Actions = {
 	default: async (event) => {
-		const formData = Object.fromEntries(await event.request.formData());
+		const form = await superValidate(event, formSchema);
 
-		const data = formSchema.parse(formData);
-
-		const existingUser = await db.select().from(user).where(eq(user.email, data.email));
-
-		if (existingUser) {
+		if (!form.valid) {
 			return fail(400, {
-				message: 'Account with that email already exists.'
+				form
 			});
 		}
 
+		const existingUser = await db.select().from(user).where(eq(user.email, form.data.email));
+
+		if (Object.keys(existingUser).length != 0) {
+			console.log(typeof existingUser);
+			console.log(existingUser);
+			return setError(form, 'email', 'Email address already exists');
+		}
+
 		const userId = generateId(15);
-		const hashedPassword = await new Argon2id().hash(data.password);
+		const hashedPassword = await new Argon2id().hash(form.data.password);
 
 		try {
-			await db.insert(user).values({ id: userId, email: data.email, password: hashedPassword });
+			await db
+				.insert(user)
+				.values({ id: userId, email: form.data.email, password: hashedPassword });
 			const session = await lucia.createSession(userId, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
 			event.cookies.set(sessionCookie.name, sessionCookie.value, {
