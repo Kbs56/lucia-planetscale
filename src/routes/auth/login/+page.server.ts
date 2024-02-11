@@ -33,12 +33,10 @@ export const actions: Actions = {
 		const existingUser = await db.select().from(user).where(eq(user.email, form.data.email));
 
 		if (Object.keys(existingUser).length === 0) {
-			return message(form, 'No user with that email found');
+			return message(form, 'Incorrect username or password');
 		}
 
 		const validPassword = await new Argon2id().verify(existingUser[0].password, form.data.password);
-
-		console.log(validPassword);
 
 		if (!validPassword) {
 			return message(form, 'Incorrect username or password');
