@@ -60,6 +60,10 @@
 				<div class="flex w-full flex-row items-center justify-center gap-1.5 pt-4">
 					<Button type="submit">Login</Button>
 				</div>
+				<div class="flex flex-col items-center justify-center">
+					<small>Or</small>
+					<a href="/auth/login/github">Login with Github</a>
+				</div>
 				<div class="flex w-full flex-row items-center justify-center gap-1">
 					<a class="text-sm" href="/auth/register"
 						>Need an account? <span class="underline">Register here.</span></a

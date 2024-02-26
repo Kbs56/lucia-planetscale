@@ -6,7 +6,9 @@
 
 <div class="flex h-screen flex-col items-center justify-center">
 	{#if data.user}
-		<h1 class="text-2xl text-slate-800">Hello {data.user.email}</h1>
+		<h1 class="text-2xl text-slate-800">
+			Hello {data.user.githubUsername === null ? data.user.email : data.user.githubUsername}
+		</h1>
 		<form method="POST">
 			<button>Sign Out</button>
 		</form>
