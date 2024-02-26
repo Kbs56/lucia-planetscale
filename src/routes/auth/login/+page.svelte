@@ -21,7 +21,7 @@
 			<Card.Description>Welcome Back.</Card.Description>
 		</Card.Header>
 		<Card.Content>
-			<form class="flex flex-col gap-y-4" method="POST">
+			<form class="flex flex-col gap-y-2" method="POST">
 				<div class="flex w-full flex-col gap-1.5">
 					{#if $message}
 						<span class="text-sm font-light text-red-600">{$message}</span>
@@ -32,7 +32,7 @@
 					<Input
 						type="email"
 						id="email"
-						placeholder="email"
+						placeholder="youremail@email.com"
 						name="email"
 						required
 						bind:value={$form.email}
@@ -57,13 +57,14 @@
 					{/if}
 				</div>
 
-				<div class="flex w-full flex-row items-center justify-center gap-1.5">
+				<div class="flex w-full flex-row items-center justify-center gap-1.5 py-4">
 					<Button type="submit">Login</Button>
 				</div>
-
-				{#if $form?.data?.message}
-					hello
-				{/if}
+				<div class="flex w-full flex-row items-center justify-center gap-1">
+					<a class="text-sm" href="/auth/register"
+						>Need an account? <span class="underline">Register here.</span></a
+					>
+				</div>
 			</form>
 		</Card.Content>
 	</Card.Root>

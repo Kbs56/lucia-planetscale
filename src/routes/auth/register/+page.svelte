@@ -56,10 +56,11 @@
 				<div class="flex w-full flex-row items-center justify-center gap-1.5">
 					<Button type="submit">Register</Button>
 				</div>
-
-				{#if $form?.data?.message}
-					hello
-				{/if}
+				<div class="flex w-full flex-row items-center justify-center gap-1">
+					<a class="text-sm" href="/auth/login"
+						>Already Have an account? <span class="underline">Log in here.</span></a
+					>
+				</div>
 			</form>
 		</Card.Content>
 	</Card.Root>

@@ -1,3 +1,4 @@
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
@@ -5,5 +6,7 @@ export const load: PageServerLoad = async (event) => {
 		return {
 			user: event.locals.user
 		};
+	} else {
+		redirect(302, '/auth/register');
 	}
 };

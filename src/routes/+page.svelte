@@ -2,9 +2,10 @@
 	export let data;
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<title>Home</title>
 
-{#if data.user}
-	<h1>Hello {data.user.email}</h1>
-{/if}
+<div class="flex h-screen items-center justify-center">
+	{#if data.user}
+		<h1 class="text-2xl text-slate-800">Hello {data.user.email}</h1>
+	{/if}
+</div>
