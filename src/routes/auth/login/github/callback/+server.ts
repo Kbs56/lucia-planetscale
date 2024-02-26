@@ -25,11 +25,9 @@ export async function GET(event: RequestEvent): Promise<Response> {
 			}
 		});
 		const githubUser: GitHubUser = await githubUserResponse.json();
-		console.log('here');
 		console.log(githubUser);
 
 		const existingUser = await db.select().from(user).where(eq(user.providerId, githubUser.id));
-		console.log(existingUser);
 
 		if (existingUser.length != 0) {
 			const session = await lucia.createSession(existingUser[0].id, {});
@@ -40,7 +38,6 @@ export async function GET(event: RequestEvent): Promise<Response> {
 			});
 		} else {
 			const userId = generateId(15);
-			console.log(userId);
 
 			await db
 				.insert(user)

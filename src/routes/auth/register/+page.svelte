@@ -3,6 +3,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
+	import { Separator } from '$lib/components/ui/separator';
 	import type { PageData } from '../$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { formSchema } from '$lib/schema';
@@ -54,12 +55,18 @@
 				</div>
 
 				<div class="flex w-full flex-row items-center justify-center gap-1.5 pt-4">
-					<Button type="submit">Register</Button>
+					<Button type="submit" class="w-full">Register</Button>
 				</div>
-				<div class="flex w-full flex-row items-center justify-center gap-1">
-					<a class="text-sm" href="/auth/login"
-						>Already have an account? <span class="underline">Login here.</span></a
-					>
+				<div class="flex flex-col items-center justify-center">
+					<Separator />
+					<div class="flex w-full flex-row items-center justify-center gap-1.5 pt-2">
+						<Button href="/auth/login/github" class="w-full">Continue with Github</Button>
+					</div>
+					<div class="flex w-full flex-row items-center justify-center gap-1 pt-2">
+						<a class="text-sm" href="/auth/login"
+							>Already have an account? <span class="underline">Login here.</span></a
+						>
+					</div>
 				</div>
 			</form>
 		</Card.Content>

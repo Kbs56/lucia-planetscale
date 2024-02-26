@@ -3,6 +3,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
+	import { Separator } from '$lib/components/ui/separator';
 	import type { PageData } from '../$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { formSchema } from '$lib/schema';
@@ -58,11 +59,13 @@
 				</div>
 
 				<div class="flex w-full flex-row items-center justify-center gap-1.5 pt-4">
-					<Button type="submit">Login</Button>
+					<Button type="submit" class="w-full">Login</Button>
 				</div>
 				<div class="flex flex-col items-center justify-center">
-					<small>Or</small>
-					<a href="/auth/login/github">Login with Github</a>
+					<Separator />
+					<div class="flex w-full flex-row items-center justify-center gap-1.5 pt-2">
+						<Button href="/auth/login/github" class="w-full">Login with Github</Button>
+					</div>
 				</div>
 				<div class="flex w-full flex-row items-center justify-center gap-1">
 					<a class="text-sm" href="/auth/register"
