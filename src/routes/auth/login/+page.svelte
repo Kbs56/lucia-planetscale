@@ -57,7 +57,7 @@
 					{/if}
 				</div>
 
-				<div class="flex w-full flex-row items-center justify-center gap-1.5 py-4">
+				<div class="flex w-full flex-row items-center justify-center gap-1.5 pt-4">
 					<Button type="submit">Login</Button>
 				</div>
 				<div class="flex w-full flex-row items-center justify-center gap-1">
