@@ -22,7 +22,7 @@
 			<Card.Description>Register here to become a member.</Card.Description>
 		</Card.Header>
 		<Card.Content>
-			<form class="flex flex-col gap-y-4" method="POST">
+			<form class="flex flex-col gap-y-2" method="POST">
 				<div class="flex w-full flex-col gap-1.5">
 					<Label for="email">Email</Label>
 					<Input
@@ -53,12 +53,12 @@
 					{/if}
 				</div>
 
-				<div class="flex w-full flex-row items-center justify-center gap-1.5">
+				<div class="flex w-full flex-row items-center justify-center gap-1.5 pt-4">
 					<Button type="submit">Register</Button>
 				</div>
 				<div class="flex w-full flex-row items-center justify-center gap-1">
 					<a class="text-sm" href="/auth/login"
-						>Already Have an account? <span class="underline">Log in here.</span></a
+						>Already have an account? <span class="underline">Login here.</span></a
 					>
 				</div>
 			</form>
